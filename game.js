@@ -2,7 +2,7 @@
 //
 // Copyright (c) 2010 Doug McInnes
 //
-
+ 
 KEY_CODES = {
   32: 'space',
   37: 'left',
@@ -728,6 +728,20 @@ Asteroid = function () {
     this.scale /= 3;
     if (this.scale > 0.5) {
       this.breakIntoFragments();
+
+      // break into fragments
+      for (var i = 0; i < 2; i++) {
+        var roid = $.extend(true, {}, this);
+        roid.vel.x = Math.random() * 6 - 3;
+        roid.vel.y = Math.random() * 6 - 3;
+        if (Math.random() > 0.5) {
+          roid.points.reverse();
+        }
+        roid.vel.rot = Math.random() * 2 - 1;
+        roid.move(roid.scale * 3); // give them a little push
+        Game.sprites.push(roid);
+      }
+
     }
     Game.explosionAt(other.x, other.y);
     this.die();
